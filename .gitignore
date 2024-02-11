@@ -158,3 +158,15 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+vflask/pyvenv.cfg
+vflask/Scripts/activate
+vflask/Scripts/activate.bat
+vflask/Scripts/Activate.ps1
+vflask/Scripts/deactivate.bat
+vflask/Scripts/pip.exe
+vflask/Scripts/pip3.10.exe
+vflask/Scripts/pip3.exe
+vflask/Scripts/python.exe
+vflask/Scripts/pythonw.exe
+t.py
+.gitignore
