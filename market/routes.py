@@ -1,6 +1,6 @@
 from market import app
 from .models import Item, User
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from market import db
 from market.forms import RegisterForm
 
@@ -23,8 +23,12 @@ def register_page():
     if registration_form.validate_on_submit():
         user_to_create = User(username=registration_form.username.data,
                               email_address=registration_form.email_address.data,
-                              password_hash=registration_form.password.data)
+                              password_hash=registration_form.user_password.data)
         db.session.add(user_to_create)
         db.session.commit()
         return redirect(url_for('market_page'))
+    
+    if registration_form.errors != {}:
+        for err_msgs in registration_form.errors.values():
+            flash(f' ERROR CREATING USER! - {err_msgs}', category='danger')
     return render_template('register.html', reg_form=registration_form)
