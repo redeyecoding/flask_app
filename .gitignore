@@ -170,3 +170,4 @@ vflask/Scripts/python.exe
 vflask/Scripts/pythonw.exe
 t.py
 .gitignore
+market/market.db

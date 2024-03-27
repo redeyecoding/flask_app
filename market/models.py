@@ -1,12 +1,22 @@
 from market import db, app
+from market import bcrypt as bc
 
 class User(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    budjet = db.Column(db.Integer(), nullable=False, default=3001, unique=False)
+    budjet = db.Column(db.Integer(), nullable=False, default=3002, unique=False)
     items = db.relationship('Item', backref='owned_user', lazy=True)
+    
+    @property
+    def password(self):
+        return self.password
+    
+    @password.setter
+    def password(self, plain_text_password):
+        self.password_hash = bc.generate_password_hash(plain_text_password).decode('utf-8')
+        
 
 class Item(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -22,8 +32,7 @@ class Item(db.Model):
     
 with app.app_context():
     db.create_all()
-    # db.session.add(item3)
-    # db.session.commit()
+
     
 # jeff_test_data = {
 #         'item1': {

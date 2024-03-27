@@ -23,7 +23,8 @@ def register_page():
     if registration_form.validate_on_submit():
         user_to_create = User(username=registration_form.username.data,
                               email_address=registration_form.email_address.data,
-                              password_hash=registration_form.user_password.data)
+                              password=registration_form.user_password.data)
+        
         db.session.add(user_to_create)
         db.session.commit()
         return redirect(url_for('market_page'))
@@ -32,3 +33,7 @@ def register_page():
         for err_msgs in registration_form.errors.values():
             flash(f' ERROR CREATING USER! - {err_msgs}', category='danger')
     return render_template('register.html', reg_form=registration_form)
+
+@app.route("/login", methods=['GET', 'POST'])
+def login_page():
+    return render_template('login.html')
